@@ -160,7 +160,7 @@ const SignUpForm = () => {
           <form action="" className="w-full h-full" onSubmit={handleSignup}>
             {/* fullname Input Field */}
             <FieldGroup>
-              <Field data-invalid={!!signupError?.existingEmail}>
+              <Field>
                 <FieldContent>
                   <FieldLabel htmlFor={"fullname"}>fullname</FieldLabel>
                   <InputGroup>

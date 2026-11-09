@@ -37,6 +37,7 @@ import { Input } from "../ui/input";
 import SignupErrorAlert from "./SignupErrorAlert";
 import { supabase } from "@/lib/supabaseClient";
 import EmailSentAlert from "./EmailSentAlert";
+import { Spinner } from "@/components/ui/spinner";
 
 const SignUpForm = () => {
   const { setSession } = useContext(SessionContext);
@@ -119,8 +120,8 @@ const SignUpForm = () => {
 
       console.log(isProfileCreated);
 
-      navigate("/dashboard", { replace: true });
-    } else if (data.session && !error) {
+      // navigate("/dashboard", { replace: true });
+    } else if (!data.session && !error) {
       setIsEmailSent(true);
     }
 
@@ -312,7 +313,14 @@ const SignUpForm = () => {
 
               {/* Login Button */}
               <Button size="lg" type={"submit"} className={"mt-5"}>
-                Sign Up
+                {isLoading ? (
+                  <div className="flex items-center gap-2">
+                    <Spinner />
+                    <p>Signing Up...</p>
+                  </div>
+                ) : (
+                  <>Sign up</>
+                )}
               </Button>
             </FieldGroup>
           </form>

@@ -18,8 +18,8 @@ const Login = () => {
   }, [session]);
 
   return (
-    <section className="w-full h-dvh p-5 flex items-center justify-center">
-      <CardContent className="w-fit max-w-300 h-dvh max-h-150 grid grid-cols-2 gap-0 bg-card rounded-lg shadow-md">
+    <section className="w-full min-h-dvh p-5 flex justify-center items-center">
+      <CardContent className="w-fit max-w-300 h-fit max-h-200 grid grid-cols-1 gap-0 bg-card rounded-lg shadow-md md:grid-cols-2">
         <LoginForm />
         <ImageContainer />
       </CardContent>

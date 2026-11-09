@@ -15,7 +15,6 @@ function App() {
       <Routes>
         <Route path={"/"} element={<Login />} />
         <Route path={"/dashboard"} element={<Dashboard />} />
-        <Route path={"/forgotPassword"} element={<ForgotPassword />} />
         <Route path={"/Signup"} element={<Signup />} />
         <Route path={"/unauthorizedAccess"} element={<UnauthorizedAccess />} />
         <Route path={"*"} element={<PageNotFound />} />

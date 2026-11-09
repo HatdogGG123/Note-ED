@@ -38,7 +38,7 @@ import LoginErrorAlert from "./LoginErrorAlert";
 const LoginForm = () => {
   const navigate = useNavigate();
   const { session, setSession } = useContext(SessionContext);
-
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [userCredential, setUserCredential] = useState({
     email: "",
@@ -46,6 +46,10 @@ const LoginForm = () => {
   });
 
   const [email, setEmail] = useState("");
+
+  const togglePassword = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   const handleLogin = async (e) => {
     if (
@@ -74,13 +78,12 @@ const LoginForm = () => {
   };
 
   return (
-    <section className="flex justify-end">
+    <section className="flex justify-end items-center">
       <Card
         className={
-          "h-full justify-center w-md rounded-tr-none rounded-br-none border-none ring-0"
+          "h-fit justify-center w-md border-none ring-0 shadow-none md:rounded-tr-none md:rounded-br-none"
         }
       >
-        <p>{email}</p>
         <CardHeader className={"flex flex-col items-center"}>
           <img
             src="/src/assets/note-ed-logo.jpg"
@@ -88,10 +91,10 @@ const LoginForm = () => {
             loading="lazy"
             className="aspect-square size-10"
           />
-          <FieldLegend>
+          <FieldLegend className={"text-center"}>
             <span className="text-[2rem]">Welcome to Note-ED!</span>
           </FieldLegend>
-          <FieldDescription>
+          <FieldDescription className={"text-center"}>
             Log in to keep your tasks and notes organized in one place.
           </FieldDescription>
 
@@ -138,8 +141,7 @@ const LoginForm = () => {
                     </InputGroupAddon>
                     <InputGroupInput
                       id={"password"}
-                      placeholder={"sample@gmail.com"}
-                      type={"password"}
+                      type={isPasswordVisible ? "text" : "password"}
                       required
                       ref={""}
                       onChange={(e) => {
@@ -151,16 +153,17 @@ const LoginForm = () => {
                         setLoginError("");
                       }}
                     />
-                    <InputGroupButton align="inline-end">
-                      <EyeOff strokeWidth={1} />
+                    <InputGroupButton
+                      onClick={togglePassword}
+                      align="inline-end"
+                    >
+                      {isPasswordVisible ? (
+                        <Eye strokeWidth={1} />
+                      ) : (
+                        <EyeOff strokeWidth={1} />
+                      )}
                     </InputGroupButton>
                   </InputGroup>
-
-                  <FieldLabel className={"w-full flex justify-end"}>
-                    <Link to={"/forgotPassword"} className="underline">
-                      Forgot Password?
-                    </Link>
-                  </FieldLabel>
                 </FieldContent>
               </Field>
 

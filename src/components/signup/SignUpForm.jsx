@@ -40,10 +40,12 @@ import { supabase } from "@/lib/supabaseClient";
 import EmailSentAlert from "./EmailSentAlert";
 import { Spinner } from "@/components/ui/spinner";
 import logo from "../../assets/note-ed-logo.jpg";
+import { UserContext } from "@/context/UserContext";
 
 const SignUpForm = () => {
   let [captchaToken, setCaptchaToken] = useState("");
   const captcha = useRef();
+  const { user, setUser } = useContext(UserContext);
   const { setSession } = useContext(SessionContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);

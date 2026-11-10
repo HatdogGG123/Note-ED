@@ -88,10 +88,6 @@ const SignUpForm = () => {
 
       setIsLoading(false);
       return;
-    } else if (error?.message?.toLowerCase().includes("captcha")) {
-      setSignupError({
-        captchaRequestLimitReached: "Captcha failed. Please try again.",
-      });
     }
 
     const { data, error } = await supabase.auth.signUp({
@@ -123,8 +119,11 @@ const SignUpForm = () => {
       return;
     } else if (error?.code === "over_email_send_rate_limit") {
       setSignupError({
-        requestLimitReached:
-          "This email is already registered. Please log in instead.",
+        requestLimitReached: "Too many attempts. Please try again later.",
+      });
+    } else if (error?.message?.toLowerCase().includes("captcha")) {
+      setSignupError({
+        captchaRequestLimitReached: "Captcha failed. Please try again.",
       });
     }
 

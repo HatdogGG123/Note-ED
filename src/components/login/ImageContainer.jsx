@@ -1,12 +1,13 @@
 import React from "react";
+import image from "../../assets/login-image-bg.jpg";
 
 const ImageContainer = () => {
   return (
-    <section className="w-full h-full max-h-200 overflow-hidden rounded-lg hidden md:block">
+    <section className="relative hidden h-full w-full overflow-hidden rounded-lg md:block">
       <img
-        src="/src/assets/login-image-bg.jpg"
+        src={image}
         alt="Doodle illustration for login page side image"
-        className="size-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
       />
     </section>
   );

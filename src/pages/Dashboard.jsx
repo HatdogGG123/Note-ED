@@ -99,7 +99,7 @@ const Dashboard = () => {
             <section className="flex justify-end items-center">
               <AddTaskButton />
             </section>
-            <section className="grid grid-cols-3 gap-5">
+            <section className="grid grid-cols-1 gap-5 lg:grid-cols-3">
               {tasks?.length === 0 ? (
                 <>
                   <Empty className={"col-span-full"}>

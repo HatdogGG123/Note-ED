@@ -61,7 +61,7 @@ const AddTaskButton = () => {
 
       toast.add({
         title: `Task created`,
-        description: "",    
+        description: "",
       });
 
       setOpen(false);
@@ -114,7 +114,8 @@ const AddTaskButton = () => {
               <Label>Priority Level</Label>
               <section className="flex gap-1 w-full">
                 <Button
-                  className={"bg-green-700 grow"}
+                  variant={`${task.priorityLevel === 3 ? "default" : "outline"}`}
+                  className={`grow`}
                   onClick={() =>
                     setTask((prev) => ({ ...prev, priorityLevel: 3 }))
                   }
@@ -122,7 +123,8 @@ const AddTaskButton = () => {
                   High
                 </Button>
                 <Button
-                  className={"bg-orange-700 grow"}
+                  variant={`${task.priorityLevel === 2 ? "default" : "outline"}`}
+                  className={`grow`}
                   onClick={() =>
                     setTask((prev) => ({ ...prev, priorityLevel: 2 }))
                   }
@@ -130,7 +132,8 @@ const AddTaskButton = () => {
                   Mid
                 </Button>
                 <Button
-                  className={"bg-red-700 grow"}
+                  variant={`${task.priorityLevel === 1 ? "default" : "outline"}`}
+                  className={`grow`}
                   onClick={() =>
                     setTask((prev) => ({ ...prev, priorityLevel: 1 }))
                   }

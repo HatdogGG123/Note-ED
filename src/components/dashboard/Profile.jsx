@@ -17,6 +17,7 @@ const Profile = () => {
   const { session } = useContext(SessionContext);
 
   const email = session?.user.email;
+  const nameInitial = user?.fullname.charAt(0).toUpperCase();
 
   return (
     <section>
@@ -24,7 +25,7 @@ const Profile = () => {
         <PopoverTrigger>
           <Avatar className={"size-12"}>
             <AvatarFallback className={"bg-primary"}>
-              <p className="text-primary-foreground text-lg">R</p>
+              <p className="text-primary-foreground text-lg">{nameInitial}</p>
             </AvatarFallback>
           </Avatar>
         </PopoverTrigger>

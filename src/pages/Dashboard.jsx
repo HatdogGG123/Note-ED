@@ -48,11 +48,7 @@ const Dashboard = () => {
   const getUser = async () => {
     setIsFetchingUser(true);
 
-    const { data, error } = await supabase
-      .from("profile")
-      .select("*")
-      .eq("id", session?.user?.id)
-      .limit(1);
+    const { data, error } = await supabase.from("profile").select("*").limit(1);
 
     setIsFetchingUser(false);
 
@@ -61,6 +57,8 @@ const Dashboard = () => {
 
       return;
     }
+
+    console.log(data);
 
     setUser({
       fullname: data[0]?.fullname,

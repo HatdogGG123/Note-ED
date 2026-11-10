@@ -84,6 +84,9 @@ const SignUpForm = () => {
     const { data, error } = await supabase.auth.signUp({
       email: userCredentials.email,
       password: userCredentials.password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/dashboard`,
+      },
     });
 
     if (data.user?.identities?.length === 0) {

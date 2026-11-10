@@ -13,7 +13,7 @@ const Signup = () => {
     if (session) {
       console.log("Logged in");
 
-      navigate("/dashboard", { replace: true });
+      navigate("/", { replace: true });
     }
   }, [session]);
 

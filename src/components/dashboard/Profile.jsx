@@ -27,7 +27,7 @@ const Profile = () => {
         <PopoverTrigger>
           <Avatar className={"size-12"}>
             <AvatarFallback className={"bg-primary"}>
-              {/* <p className="text-primary-foreground text-lg">{nameInitial}</p> */}
+              <p className="text-primary-foreground text-lg">{nameInitial}</p>
             </AvatarFallback>
           </Avatar>
         </PopoverTrigger>

@@ -7,7 +7,7 @@ import { SessionContext } from "@/context/SessionContext";
 const Header = () => {
   const { user } = useContext(UserContext);
 
-  const fullname = user?.fullname;
+  const fullname = user?.fullname?.split()[0];
 
   return (
     <section className="w-full flex justify-between items-center">

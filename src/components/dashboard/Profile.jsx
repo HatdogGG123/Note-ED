@@ -19,7 +19,7 @@ const Profile = () => {
   console.log(user);
 
   const email = session?.user.email;
-  const nameInitial = user[0]?.fullname?.charAt(0)?.toUpperCase() ?? "";
+  const nameInitial = user?.fullname?.charAt(0)?.toUpperCase() ?? "";
 
   return (
     <section>

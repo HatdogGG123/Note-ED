@@ -1,7 +1,8 @@
 import { SessionContext } from "@/context/SessionContext";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router";
 import { Mail, Lock, User2, Eye, EyeOff } from "lucide-react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Alert, AlertTitle, AlertDescription, AlertAction } from "../ui/alert";
 import {
   Card,
@@ -41,6 +42,8 @@ import { Spinner } from "@/components/ui/spinner";
 import logo from "../../assets/note-ed-logo.jpg";
 
 const SignUpForm = () => {
+  let [captchaToken, setCaptchaToken] = useState("");
+  const captcha = useRef();
   const { setSession } = useContext(SessionContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
@@ -84,9 +87,7 @@ const SignUpForm = () => {
     const { data, error } = await supabase.auth.signUp({
       email: userCredentials.email,
       password: userCredentials.password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/dashboard`,
-      },
+      options: { captchaToken },
     });
 
     if (data.user?.identities?.length === 0) {
@@ -121,6 +122,8 @@ const SignUpForm = () => {
         data.user.id,
         userCredentials.fullname,
       );
+
+      captcha.current.resetCaptcha();
 
       console.log(isProfileCreated);
 
@@ -314,6 +317,12 @@ const SignUpForm = () => {
                   </InputGroup>
                 </FieldContent>
               </Field>
+
+              <HCaptcha
+                sitekey="067eb4d4-9272-4b7e-9a4c-4b60742606c4"
+                onVerify={setCaptchaToken}
+                ref={captcha}
+              />
 
               {/* Login Button */}
               <Button size="lg" type={"submit"} className={"mt-5"}>

@@ -93,7 +93,7 @@ const LoginForm = () => {
             className="aspect-square size-10"
           />
           <FieldLegend className={"text-center"}>
-            <span className="text-[2rem]">Welcome to Note-ED!</span>
+            <span className="text-[2rem]">Welcome to Task-ED!</span>
           </FieldLegend>
           <FieldDescription className={"text-center"}>
             Log in to keep your tasks and notes organized in one place.

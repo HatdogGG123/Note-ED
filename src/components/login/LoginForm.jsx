@@ -34,6 +34,7 @@ import { Button } from "../ui/button";
 import { Mail, Key, Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import LoginErrorAlert from "./LoginErrorAlert";
+import logo from "../../assets/note-ed-logo.jpg";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -86,7 +87,7 @@ const LoginForm = () => {
       >
         <CardHeader className={"flex flex-col items-center"}>
           <img
-            src="/src/assets/note-ed-logo.jpg"
+            src={logo}
             alt="Note-ED Logo."
             loading="lazy"
             className="aspect-square size-10"

@@ -38,6 +38,7 @@ import SignupErrorAlert from "./SignupErrorAlert";
 import { supabase } from "@/lib/supabaseClient";
 import EmailSentAlert from "./EmailSentAlert";
 import { Spinner } from "@/components/ui/spinner";
+import logo from "../../assets/note-ed-logo.jpg";
 
 const SignUpForm = () => {
   const { setSession } = useContext(SessionContext);
@@ -137,7 +138,7 @@ const SignUpForm = () => {
       >
         <CardHeader className={"flex flex-col items-center"}>
           <img
-            src="/src/assets/note-ed-logo.jpg"
+            src={logo}
             alt="Note-ED Logo."
             loading="lazy"
             className="aspect-square size-10"

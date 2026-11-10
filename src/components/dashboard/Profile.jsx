@@ -17,7 +17,7 @@ const Profile = () => {
   const { session } = useContext(SessionContext);
 
   const email = session?.user.email;
-  const nameInitial = user?.fullname.charAt(0).toUpperCase();
+  const nameInitial = user?.fullname?.charAt(0)?.toUpperCase() ?? "";
 
   return (
     <section>

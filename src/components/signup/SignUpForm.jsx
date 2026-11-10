@@ -131,16 +131,21 @@ const SignUpForm = () => {
 
     if (data.session) {
       console.log("Account Created");
-      setSession(data.session);
 
-      const isProfileCreated = await createNewProfile(
+      const profileResponse = await createNewProfile(
         data.user.id,
         userCredentials.fullname,
       );
 
-      console.log(isProfileCreated);
+      if (profileResponse.error) {
+        console.log(profileResponse.error);
+        return;
+      }
 
-      // navigate("/dashboard", { replace: true });
+      setUser(profileResponse.data);
+      setSession(data.session);
+
+      navigate("/dashboard", { replace: true });
     } else if (!data.session && !error) {
       setIsEmailSent(true);
     }
@@ -377,10 +382,14 @@ const SignUpForm = () => {
 };
 
 async function createNewProfile(id, fullname) {
-  const response = await supabase.from("profile").insert({
-    id: id,
-    fullname: fullname,
-  });
+  const response = await supabase
+    .from("profile")
+    .insert({
+      id: id,
+      fullname: fullname,
+    })
+    .select()
+    .single();
 
   return response;
 }

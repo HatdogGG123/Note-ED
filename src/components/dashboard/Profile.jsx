@@ -16,8 +16,10 @@ const Profile = () => {
   const { user } = useContext(UserContext);
   const { session } = useContext(SessionContext);
 
+  console.log(user);
+
   const email = session?.user.email;
-  const nameInitial = user?.fullname?.charAt(0)?.toUpperCase() ?? "";
+  // const nameInitial = user[0]?.fullname?.charAt(0)?.toUpperCase() ?? "";
 
   return (
     <section>
@@ -25,7 +27,7 @@ const Profile = () => {
         <PopoverTrigger>
           <Avatar className={"size-12"}>
             <AvatarFallback className={"bg-primary"}>
-              <p className="text-primary-foreground text-lg">{nameInitial}</p>
+              {/* <p className="text-primary-foreground text-lg">{nameInitial}</p> */}
             </AvatarFallback>
           </Avatar>
         </PopoverTrigger>

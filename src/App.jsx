@@ -17,7 +17,7 @@ function App() {
         <Route path={"/dashboard"} element={<Dashboard />} />
         <Route path={"/Signup"} element={<Signup />} />
         <Route path={"/unauthorizedAccess"} element={<UnauthorizedAccess />} />
-        <Route path={"*"} element={<PageNotFound />} />
+        <Route path={"*"} element={<Dashboard />} />
       </Routes>
     </>
   );

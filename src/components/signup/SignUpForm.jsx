@@ -64,6 +64,12 @@ const SignUpForm = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    if (!captchaToken) {
+      setSignupError({ captchaRequired: "Please complete the captcha." });
+      return;
+    }
+
     setIsLoading(true);
     setSignupError("");
     setIsEmailSent(false);
@@ -82,13 +88,23 @@ const SignUpForm = () => {
 
       setIsLoading(false);
       return;
+    } else if (error?.message?.toLowerCase().includes("captcha")) {
+      setSignupError({
+        captchaRequestLimitReached: "Captcha failed. Please try again.",
+      });
     }
 
     const { data, error } = await supabase.auth.signUp({
       email: userCredentials.email,
       password: userCredentials.password,
-      options: { captchaToken },
+      options: {
+        emailRedirectTo: `${window.location.origin}/dashboard`,
+        captchaToken,
+      },
     });
+
+    captcha.current?.resetCaptcha();
+    setCaptchaToken("");
 
     if (data.user?.identities?.length === 0) {
       setSignupError({
@@ -122,8 +138,6 @@ const SignUpForm = () => {
         data.user.id,
         userCredentials.fullname,
       );
-
-      captcha.current.resetCaptcha();
 
       console.log(isProfileCreated);
 
@@ -277,7 +291,9 @@ const SignUpForm = () => {
               {/* Confirm Password Input Field */}
               <Field data-invalid={!!signupError?.passwordNotMatch}>
                 <FieldContent>
-                  <FieldLabel htmlFor={"password"}>Confirm Password</FieldLabel>
+                  <FieldLabel htmlFor={"confirmPassword"}>
+                    Confirm Password
+                  </FieldLabel>
                   <FieldDescription
                     className={
                       !!signupError?.passwordNotMatch ? "text-destructive" : ""
@@ -291,7 +307,7 @@ const SignUpForm = () => {
                     </InputGroupAddon>
                     <InputGroupInput
                       aria-invalid={!!signupError?.passwordNotMatch}
-                      id={"password"}
+                      id={"confirmPassword"}
                       type={isPasswordVisible ? "text" : "password"}
                       required
                       ref={""}
@@ -318,11 +334,20 @@ const SignUpForm = () => {
                 </FieldContent>
               </Field>
 
-              <HCaptcha
-                sitekey="067eb4d4-9272-4b7e-9a4c-4b60742606c4"
-                onVerify={setCaptchaToken}
-                ref={captcha}
-              />
+              <Field>
+                <HCaptcha
+                  sitekey={import.meta.env.VITE_HCAPTCHA_SITEKEY}
+                  onVerify={setCaptchaToken}
+                  ref={captcha}
+                />
+                {(signupError?.captchaRequired ||
+                  signupError?.captchaRequestLimitReached) && (
+                  <FieldError>
+                    {signupError?.captchaRequired ||
+                      signupError?.captchaRequestLimitReached}
+                  </FieldError>
+                )}
+              </Field>
 
               {/* Login Button */}
               <Button size="lg" type={"submit"} className={"mt-5"}>

@@ -38,8 +38,6 @@ import LoginErrorAlert from "./LoginErrorAlert";
 import logo from "../../assets/note-ed-logo.jpg";
 
 const LoginForm = () => {
-  e.preventDefault();
-
   const navigate = useNavigate();
   const { session, setSession } = useContext(SessionContext);
   const [captchaToken, setCaptchaToken] = useState("");
@@ -58,6 +56,8 @@ const LoginForm = () => {
   };
 
   const handleLogin = async (e) => {
+    e.preventDefault();
+
     if (
       !userCredential.email.trim().includes("@") ||
       userCredential.email.trim() === "" ||

@@ -38,6 +38,8 @@ import LoginErrorAlert from "./LoginErrorAlert";
 import logo from "../../assets/note-ed-logo.jpg";
 
 const LoginForm = () => {
+  e.preventDefault();
+
   const navigate = useNavigate();
   const { session, setSession } = useContext(SessionContext);
   const [captchaToken, setCaptchaToken] = useState("");
@@ -64,15 +66,12 @@ const LoginForm = () => {
       return;
     }
 
-    e.preventDefault();
-    
     if (!captchaToken || captchaToken == "") {
       setLoginError(
         "Captcha is needed to login. Please check the checkbox before logging in.",
       );
       return;
     }
-    
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email: userCredential.email.trim(),
@@ -193,7 +192,7 @@ const LoginForm = () => {
               />
 
               {/* Login Button */}
-              <Button size="lg" type={"submit"} className={"mt-5"}>
+              <Button size="lg" type={"button"} className={"mt-5"}>
                 Login
               </Button>
             </FieldGroup>

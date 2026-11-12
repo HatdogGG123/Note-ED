@@ -40,7 +40,7 @@ import logo from "../../assets/note-ed-logo.jpg";
 const LoginForm = () => {
   const navigate = useNavigate();
   const { session, setSession } = useContext(SessionContext);
-  const [captchaToken, setCaptchaToken] = useState();
+  const [captchaToken, setCaptchaToken] = useState("");
   const captcha = useRef();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [loginError, setLoginError] = useState("");

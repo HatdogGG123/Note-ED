@@ -44,12 +44,11 @@ const LoginForm = () => {
   const captcha = useRef();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [loginError, setLoginError] = useState("");
+  // const [email, setEmail] = useState("");
   const [userCredential, setUserCredential] = useState({
     email: "",
     password: "",
   });
-
-  const [email, setEmail] = useState("");
 
   const togglePassword = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -89,10 +88,8 @@ const LoginForm = () => {
       return;
     } else {
       console.log(data);
-      setEmail(data.user.email);
+      // setEmail(data.user.email);
       setSession(data.session);
-
-      navigate("/dashboard", { replace: true });
     }
   };
 
@@ -136,7 +133,6 @@ const LoginForm = () => {
                       placeholder={"sample@gmail.com"}
                       type={"email"}
                       required
-                      ref={""}
                       onChange={(e) => {
                         setUserCredential((prev) => ({
                           ...prev,
@@ -191,11 +187,11 @@ const LoginForm = () => {
                 onVerify={(token) => {
                   setCaptchaToken(token);
                 }}
-                onExpire={setCaptchaToken("")}
+                onExpire={() => setCaptchaToken("")}
               />
 
               {/* Login Button */}
-              <Button size="lg" type={"button"} className={"mt-5"}>
+              <Button size="lg" type={"submit"} className={"mt-5"}>
                 Login
               </Button>
             </FieldGroup>

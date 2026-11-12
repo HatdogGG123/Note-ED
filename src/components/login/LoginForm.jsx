@@ -64,14 +64,15 @@ const LoginForm = () => {
       return;
     }
 
+    e.preventDefault();
+    
     if (!captchaToken || captchaToken == "") {
       setLoginError(
         "Captcha is needed to login. Please check the checkbox before logging in.",
       );
       return;
     }
-
-    e.preventDefault();
+    
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email: userCredential.email.trim(),

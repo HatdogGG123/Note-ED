@@ -60,9 +60,9 @@ const LoginForm = () => {
 
     if (
       !userCredential.email.trim().includes("@") ||
-      userCredential.email.trim() === "" ||
       userCredential.password.trim() === ""
     ) {
+      setLoginError("Please enter a valid email and password.");
       return;
     }
 
@@ -80,6 +80,7 @@ const LoginForm = () => {
     });
 
     captcha.current.resetCaptcha();
+    setCaptchaToken("");
 
     if (error) {
       setLoginError("You have entered invalid credentials. Please try again.");
@@ -90,6 +91,8 @@ const LoginForm = () => {
       console.log(data);
       setEmail(data.user.email);
       setSession(data.session);
+
+      navigate("/dashboard", { replace: true });
     }
   };
 
@@ -159,7 +162,6 @@ const LoginForm = () => {
                       id={"password"}
                       type={isPasswordVisible ? "text" : "password"}
                       required
-                      ref={""}
                       onChange={(e) => {
                         setUserCredential((prev) => ({
                           ...prev,
@@ -189,6 +191,7 @@ const LoginForm = () => {
                 onVerify={(token) => {
                   setCaptchaToken(token);
                 }}
+                onExpire={setCaptchaToken("")}
               />
 
               {/* Login Button */}

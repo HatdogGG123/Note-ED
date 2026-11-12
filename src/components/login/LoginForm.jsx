@@ -1,3 +1,4 @@
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { SessionContext } from "@/context/SessionContext";
 import { supabase } from "@/lib/supabaseClient";
@@ -39,6 +40,8 @@ import logo from "../../assets/note-ed-logo.jpg";
 const LoginForm = () => {
   const navigate = useNavigate();
   const { session, setSession } = useContext(SessionContext);
+  const [captchaToken, setCaptchaToken] = useState();
+  const captcha = useRef();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [userCredential, setUserCredential] = useState({
@@ -61,15 +64,27 @@ const LoginForm = () => {
       return;
     }
 
+    if (!captchaToken || captchaToken == "") {
+      setLoginError(
+        "Captcha is needed to login. Please check the checkbox before logging in.",
+      );
+      return;
+    }
+
     e.preventDefault();
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email: userCredential.email.trim(),
       password: userCredential.password.trim(),
+      options: { captchaToken },
     });
+
+    captcha.current.resetCaptcha();
 
     if (error) {
       setLoginError("You have entered invalid credentials. Please try again.");
+      console.log(error);
+
       return;
     } else {
       console.log(data);
@@ -167,6 +182,14 @@ const LoginForm = () => {
                   </InputGroup>
                 </FieldContent>
               </Field>
+
+              <HCaptcha
+                ref={captcha}
+                sitekey={import.meta.env.VITE_HCAPTCHA_SITEKEY}
+                onVerify={(token) => {
+                  setCaptchaToken(token);
+                }}
+              />
 
               {/* Login Button */}
               <Button size="lg" type={"submit"} className={"mt-5"}>
